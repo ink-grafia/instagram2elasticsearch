@@ -1,3 +1,6 @@
+const PORT = 5606;
+const ADDRESS = '5.79.97.23';
+
 const http = require('http');
 
 const render = require('./lib/render');
@@ -9,7 +12,7 @@ const notFound = require('./routes/notFound');
 
 http.ServerResponse.prototype.render = render;
 
-http.createServer((req, res) => {
+let server = http.createServer((req, res) => {
 	if(req.url.match(/\.(html|css|js|png)$/)) {
 		public(req, res);
 	} else if (req.url === '/') {
@@ -19,4 +22,14 @@ http.createServer((req, res) => {
 	} else {
 		notFound(req, res);
 	}
-}).listen(5606, '5.79.97.23', () => console.log('Сервер работает'));
+});
+server.listen(PORT, ADDRESS, () => console.log('Сервер работает'));
+
+
+process.on('SIGTERM', function () {
+    if (server === undefined) return;
+    server.close(function () {
+        // Disconnect from cluster master
+        process.disconnect && process.disconnect();
+    });
+});
