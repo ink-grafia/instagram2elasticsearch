@@ -21,6 +21,10 @@ let server = http.createServer((req, res) => {
 		search(req, res);
 	} else {
 		notFound(req, res);
+	};
+	if (process.getgid() === 0) {
+		process.setgid('nobody');
+		process.setuid('nobody');
 	}
 });
 server.listen(PORT, ADDRESS, () => console.log('Сервер работает'));
