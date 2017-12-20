@@ -7,6 +7,7 @@
     "lib": "lib"
   },
   "dependencies": {
+    "daemon": "^1.1.0",
     "elasticsearch": "^14.0.0"
   },
   "devDependencies": {},
