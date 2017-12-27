@@ -26,4 +26,4 @@ app.post('/search', (req, res) => {
 })
 
 const port = 5555;
-app.listen(`5.79.97.23:${port}`, () => `Server up on: ${port}`);
+app.listen(port, '5.79.97.23', () => `Server up on: ${port}`);
